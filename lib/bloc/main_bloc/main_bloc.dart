@@ -5,9 +5,7 @@ import 'package:pixels_app/service/network_service.dart';
 
 part 'main_event.dart';
 
-t 'main_state.dart
-'
-;
+part 'main_state.dart';
 
 enum Status {
   loading,
@@ -33,7 +31,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     on<MainSearchPhotos>((event, emit) async {
       emit(state.copyWith(status: Status.loading));
       PhotoModel? searchPhotoModel =
-      await networkService.searchPhotosModel(event.url);
+          await networkService.searchPhotosModel(event.url);
       if (searchPhotoModel != null) {
         emit(state.copyWith(
             status: Status.loaded, searchPhotoModel: searchPhotoModel));
