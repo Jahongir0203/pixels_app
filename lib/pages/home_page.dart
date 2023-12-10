@@ -4,7 +4,6 @@ import 'package:pixels_app/bloc/main_bloc/main_bloc.dart';
 import 'package:pixels_app/pages/widgets/getBody_widget.dart';
 import 'package:pixels_app/service/network_service.dart';
 
-import '../cubit/home_cubit/home_cubit.dart';
 import 'widgets/buildAppBar.dart';
 
 class HomePage extends StatelessWidget {

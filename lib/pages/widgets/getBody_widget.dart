@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:pixels_app/bloc/main_bloc/main_bloc.dart';
 
-import '../../cubit/home_cubit/home_cubit.dart';
 import 'buildCategories.dart';
 import 'buildTextField.dart';
 
