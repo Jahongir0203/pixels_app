@@ -1,18 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:pixels_app/pages/download_page.dart';
-import 'package:pixels_app/service/category_service.dart';
+import 'package:pixels_app/bloc/main_bloc/main_bloc.dart';
 
 import '../../cubit/home_cubit/home_cubit.dart';
 import 'buildCategories.dart';
 import 'buildTextField.dart';
-import '../search_page.dart';
 
-getBody(BuildContext context, HomeState state, HomeCubit homeCubit) {
+getBody(BuildContext context, MainState state, MainBloc mainBloc) {
   TextEditingController controller = TextEditingController();
-  if (state.status == Status.loading) {
+  if (state.status == Status.loading ) {
     return Center(
       child: CircularProgressIndicator(),
     );
@@ -22,9 +19,9 @@ getBody(BuildContext context, HomeState state, HomeCubit homeCubit) {
       child: Column(
         children: [
           buildTextField(
-                () {
-              Navigator.pushNamed(
-                  context, '/search', arguments: controller.text);
+            () {
+              Navigator.pushNamed(context, '/search',
+                  arguments: controller.text);
             },
             controller,
           ),
@@ -41,18 +38,16 @@ getBody(BuildContext context, HomeState state, HomeCubit homeCubit) {
               return InkWell(
                 onTap: () {
                   Navigator.pushNamed(context, '/download',
-                      arguments: state.photoModel!.photos![index].src!
-                          .large2x ?? ''
-                  );
+                      arguments:
+                          state.photoModel!.photos![index].src!.large2x ?? '');
                 },
                 child: ClipRRect(
-                  borderRadius:  BorderRadius.circular(25),
+                  borderRadius: BorderRadius.circular(25),
                   child: CachedNetworkImage(
                       errorWidget: (context, url, error) => Icon(Icons.error),
                       fit: BoxFit.fill,
                       imageUrl:
-                      state.photoModel!.photos![index].src!.portrait ??
-                          ''),
+                          state.photoModel!.photos![index].src!.portrait ?? ''),
                 ),
               );
             },

@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:pixels_app/cubit/home_cubit/home_cubit.dart';
-import 'package:pixels_app/service/network_service.dart';
+import 'package:pixels_app/bloc/main_bloc/main_bloc.dart';
 import 'package:pixels_app/utils/app_Colors.dart';
 import 'package:pixels_app/utils/app_Text_style.dart';
+
+import '../service/network_service.dart';
 
 class DownloadPage extends StatelessWidget {
   DownloadPage({Key? key, required this.url}) : super(key: key);
   String url;
-  HomeCubit homeCubit = HomeCubit(NetworkService());
+  MainBloc mainBloc = MainBloc(NetworkService());
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => homeCubit,
-      child: BlocBuilder<HomeCubit, HomeState>(
-        bloc: homeCubit,
+      create: (context) => mainBloc,
+      child: BlocBuilder<MainBloc, MainState>(
         builder: (context, state) {
           return Scaffold(
               body: Stack(
@@ -50,7 +50,7 @@ class DownloadPage extends StatelessWidget {
                   ),
                   child: InkWell(
                     onTap: () async {
-                      homeCubit.downloadPhotos(url);
+                      mainBloc.add(MainDownloadPhotos(url));
                     },
                     child: Container(
                       height: 50,
