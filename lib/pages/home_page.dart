@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pixels_app/bloc/main_bloc/main_bloc.dart';
+import 'package:pixels_app/pages/videos_page.dart';
 import 'package:pixels_app/pages/widgets/getBody_widget.dart';
 import 'package:pixels_app/service/network_service.dart';
 
@@ -17,16 +18,25 @@ class HomePage extends StatelessWidget {
       child: BlocBuilder<MainBloc, MainState>(
         bloc: mainBloc..add(MainGetPhotos()),
         builder: (context, state) {
-          return Scaffold(
-            appBar: buildAppBar(),
-            body: RefreshIndicator(
-              onRefresh: () async {
-                mainBloc.add(MainGetPhotos());
-              },
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                physics: const BouncingScrollPhysics(),
-                child: getBody(context, state, mainBloc),
+          return DefaultTabController(
+            length: 2,
+            child: Scaffold(
+              appBar: buildAppBar(),
+              body: RefreshIndicator(
+                onRefresh: () async {
+                  mainBloc.add(MainGetPhotos());
+                },
+                child: TabBarView(
+                  children: [
+                    SingleChildScrollView(
+                      controller: context.read<MainBloc>().scrollController,
+                      scrollDirection: Axis.vertical,
+                      physics: const BouncingScrollPhysics(),
+                      child: getBody(context, state, mainBloc),
+                    ),
+                    VideosPage(),
+                  ],
+                ),
               ),
             ),
           );

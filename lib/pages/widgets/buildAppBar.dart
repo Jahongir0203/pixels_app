@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 import '../../utils/app_Text_style.dart';
@@ -12,8 +10,28 @@ AppBar buildAppBar() {
     title: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text('Wallpaper',style:AppTextStyle.kWallPaperStyle,),
-        Text('Hub',style: AppTextStyle.kHubStyle,),
+        Text(
+          'Wallpaper',
+          style: AppTextStyle.kWallPaperStyle,
+        ),
+        Text(
+          'Hub',
+          style: AppTextStyle.kHubStyle,
+        ),
+      ],
+    ),
+    bottom: TabBar(
+      labelColor: Colors.blue,
+      unselectedLabelColor:Colors.grey ,
+      tabs: [
+        Tab(
+          icon: Icon(Icons.photo),
+          child: Text('Photos'),
+        ),
+        Tab(
+          icon: Icon(Icons.video_collection_rounded),
+          child: Text('Videos'),
+        ),
       ],
     ),
   );

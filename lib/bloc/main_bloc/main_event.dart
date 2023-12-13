@@ -5,6 +5,8 @@ abstract class MainEvent {}
 
 class MainGetPhotos extends MainEvent {}
 
+class MainGetMorePhotos extends MainEvent {}
+
 class MainSearchPhotos extends MainEvent {
   final String url;
 
@@ -16,3 +18,5 @@ class MainDownloadPhotos extends MainEvent {
 
   MainDownloadPhotos(this.Url);
 }
+
+class MainGetVideos extends MainEvent {}

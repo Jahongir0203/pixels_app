@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pixels_app/pages/download_page.dart';
 import 'package:pixels_app/pages/home_page.dart';
+import 'package:pixels_app/pages/playing_video_page.dart';
 import 'package:pixels_app/pages/search_page.dart';
 import 'package:pixels_app/pages/splash_page.dart';
 
@@ -46,6 +47,12 @@ class MyApp extends StatelessWidget {
             return CupertinoPageRoute(
               builder: (context) =>
                   DownloadPage(url: settings.arguments as String),
+            );
+
+          case '/playVideo':
+            return CupertinoPageRoute(
+              builder: (context) =>
+                 PlayingVideoPage(url:settings.arguments as String ),
             );
         }
       },

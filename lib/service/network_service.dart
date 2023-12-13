@@ -5,6 +5,7 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:pixels_app/main.dart';
 
 import '../model/photo_model.dart';
+import '../model/video_model.dart';
 
 class NetworkService {
   static final NetworkService networkService = NetworkService._internal();
@@ -15,23 +16,29 @@ class NetworkService {
 
   NetworkService._internal();
 
+//https://api.pexels.com/videos/popular?per_page=80
   final Dio _dio = Dio()..interceptors.add(alice.getDioInterceptor());
   static const String baseUrl = "https://api.pexels.com";
   static const String topPhotos = '${baseUrl}/v1/curated';
+  static const String popularVideo = '${baseUrl}/videos/popular';
   static const String searchPhotos = '${baseUrl}/v1/search';
   static const String apiKey =
       'NsBU83EB08LGOQOKGUSLSg1NwnOl2BA7ml5tnkYbSy5c2HWtVpltWIcj';
 
-  Future<PhotoModel?> getPhotos() async {
+  Future<PhotoModel?> getPhotos({int? page}) async {
     try {
-      var response = await _dio.get(topPhotos,
-          queryParameters: {
-            'page': 1,
-            'per_page': 80,
-          },
-          options: Options(headers: {
+      var response = await _dio.get(
+        topPhotos,
+        queryParameters: {
+          'page': page,
+          'per_page': 80,
+        },
+        options: Options(
+          headers: {
             'Authorization': apiKey,
-          }));
+          },
+        ),
+      );
 
       if (response.statusCode == 200) {
         PhotoModel photoModel = PhotoModel.fromJson(response.data);
@@ -78,4 +85,27 @@ class NetworkService {
     }
   }
 
+  Future<VideoModel?> getVideos({int? page}) async {
+    try {
+      var response = await _dio.get (
+        popularVideo,
+        queryParameters: {
+          'page': page,
+          'per_page': 80,
+        },
+        options: Options(
+          headers: {
+            'Authorization': apiKey,
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        return VideoModel.fromJson(response.data);
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }
